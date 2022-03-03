@@ -1,0 +1,229 @@
+<%- include('navbar')  %>
+<style>
+    #trans {
+        background: rgba(79, 70, 229, 0.35);
+        box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+        backdrop-filter: blur(4px);
+        -webkit-backdrop-filter: blur(4px);
+        border-radius: 10px;
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        margin: 2%;
+        margin-bottom: 1%;
+        padding: 2.5%;
+    }
+</style>
+
+<body>
+
+
+    <!-- This example requires Tailwind CSS v2.0+ -->
+    <div id="trans" class="fixed bottom-0 right-0">
+        <div id="padBl" class="inline-block ">
+            <a href="../transaction/<%= user.id %>" type="button"
+                class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-l">
+                Make a new Transaction
+            </a>
+            <a type="button" href="#history"
+                class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-r">
+                Transaction History
+            </a>
+        </div>
+    </div>
+    <div class="bg-white shadow overflow-hidden sm:rounded-lg">
+        <div class="px-4 py-5 sm:px-6">
+            <h3 class="text-lg leading-6 font-medium text-gray-900">Account Information</h3>
+            <p class="mt-1 max-w-2xl text-sm text-gray-500">Personal details and application. <spanm
+                    class="text-gray-300"> ® TSF Bank</span></p>
+
+
+        </div>
+        <div class="border-t border-gray-200">
+            <dl>
+                <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                    <dt class="text-sm font-medium text-gray-500">Full name</dt>
+                    <dd class="inline mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2"><%= user.name %>
+                    </dd>
+                </div>
+                <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                    <dt class="text-sm font-medium text-gray-500">Account no</dt>
+                    <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2"><%= (user.id).toUpperCase() %> </dd>
+                </div>
+                <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                    <dt class="text-sm font-medium text-gray-500">Email address</dt>
+                    <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2"><%= user.email %> </dd>
+                </div>
+                <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                    <dt class="text-sm font-medium text-gray-500">Current amount</dt>
+                    <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">₹
+                        <%= Intl.NumberFormat('en-US').format(user.amount) %></dd>
+                </div>
+            </dl>
+        </div>
+    </div>
+
+    <div class="px-4 py-5 sm:px-6">
+        <h3 class="text-lg leading-6 font-medium text-gray-900">Transaction History</h3>
+    </div>
+
+
+    <!-- logs -->
+    <!-- This example requires Tailwind CSS v2.0+ -->
+    <div id="history" class="flex flex-col">
+        <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+            <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
+                <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
+                    <table class="min-w-full divide-y divide-gray-200">
+                        <thead class="bg-gray-50">
+                            <tr>
+                                <th scope="col"
+                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    From</th>
+                                <th scope="col"
+                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    To</th>
+                                <th scope="col"
+                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    Message</th>
+                                <th scope="col"
+                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    </th>
+                                <th scope="col" class="relative px-6 py-3">
+                                    <span class="sr-only"></span>
+                                </th>
+                            </tr>
+                        </thead>
+
+
+                        <% if (user.transactions.length === 0) { %>
+                        <tbody class="bg-white divide-y divide-gray-200">
+                            <tr>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="flex items-center">
+                                        <div class="flex-shrink-0 h-10 w-10">
+
+                                        </div>
+                                        <div class="ml-4">
+                                            <div class="text-sm font-medium text-gray-900"></div>
+                                            <div class="text-sm text-gray-500"></div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="text-sm text-gray-900"></div>
+                                    <div class="text-sm text-gray-500"><img class="inline w-7"
+                                            src="https://flevix.com/wp-content/uploads/2020/01/Circle-Loading.svg" /> No
+                                        Tranaction Yet</div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <span
+                                        class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                                    </span>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"></td>
+                                <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                    <a href="#" class="text-indigo-600 hover:text-indigo-900"></a>
+                                </td>
+                            </tr>
+                        </tbody>
+
+                        <% }else{ %>
+                        <tbody class="bg-white divide-y divide-gray-200">
+
+
+                            <% user.transactions.forEach((item,i) => { %>
+                            <% if(item.to === true) { %>
+                            <tr style="background-color: rgba(255, 0, 0, 0.295);">
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="flex items-center">
+                                        <!-- <div class="flex-shrink-0 h-10 w-10">
+                                            <img class="h-10 w-10 rounded-full"
+                                                src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=4&w=256&h=256&q=60"
+                                                alt="">
+                                        </div> -->
+                                        <div class="ml-4">
+                                            <div class="text-sm font-medium text-gray-900"><%= item.sender_name %></div>
+                                            <div class="text-sm text-gray-500"><%= item.sender %></div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="text-sm font-medium text-gray-900"><%= item.recipient_name %></div>
+                                    <div class="text-sm text-gray-500"><%= item.recipient %></div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+
+                                    <%= item.message %>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                    <%= item.date %>
+                                </td>
+                                <td
+                                    class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 font-semibold bg-red-100 text-red-800">
+                                    - ₹<%= item.transactionAmount %> </td>
+                                <td>
+
+                                </td>
+                            </tr>
+                            <% }else if(item.from === true) { %>
+                            <tr style="background-color: rgba(0, 128, 0, 0.384);">
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="flex items-center">
+                                        <!-- <div class="flex-shrink-0 h-10 w-10">
+                                                <img class="h-10 w-10 rounded-full"
+                                                    src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=4&w=256&h=256&q=60"
+                                                    alt="">
+                                            </div> -->
+                                        <div class="ml-4">
+                                            <div class="text-sm font-medium text-gray-900"><%= item.sender_name %></div>
+                                            <div class="text-sm text-gray-500"><%= item.sender %></div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="text-sm font-medium text-gray-900"><%= item.recipient_name %></div>
+                                    <div class="text-sm text-gray-500"><%= item.recipient %></div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <%= item.message %>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                    <%= item.date %>
+                                </td>
+                                <td
+                                    class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 font-semibold  bg-green-100 text-green-800">
+                                    + ₹<%= item.transactionAmount %> </td>
+                                <td>
+
+                                </td>
+                            </tr>
+                            <% } %>
+                            <% }) %>
+                            <!-- More people... -->
+                        </tbody>
+                        <% } %>
+
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.26.0/axios.js"
+        integrity="sha512-MNW6IbpNuZZ2VH9ngFhzh6cUt8L/0rSVa60F8L22K1H72ro4Ki3M/816eSDLnhICu7vwH/+/yb8oB3BtBLhMsA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script>
+
+        const getUserData = async (id) => {
+
+            axios.get(`http://localhost:3000/getData/${id}`);
+
+        }
+    </script> -->
+</body>
+
+
+
+
+<%- include('footer')  %>

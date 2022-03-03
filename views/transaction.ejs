@@ -1,0 +1,264 @@
+<%- include('navbar')  %>
+
+<style>
+    #bkcg {
+        background-image: url("https://www.downloadclipart.net/large/payment-png-free-download.png");
+        /* background-position: center; */
+    }
+
+    #amtCol,
+    #amtCol2 {
+        background: rgba(79, 70, 229, 0.35);
+        box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+        backdrop-filter: blur(4px);
+        -webkit-backdrop-filter: blur(4px);
+        border-radius: 10px;
+        border: 1px solid rgba(255, 255, 255, 0.18);
+    }
+</style>
+
+<body>
+
+    <div class="hidden sm:block" aria-hidden="true">
+        <div class="py-5">
+            <div class="border-t border-gray-200"></div>
+        </div>
+    </div>
+
+    <div id="bkcg" class="mt-10 sm:mt-0">
+        <div class="md:grid md:grid-cols-3 md:gap-6">
+            <div class="md:col-span-1">
+                <div class="px-4 sm:px-0">
+                    <h3 class="text-lg font-medium leading-6 text-gray-900">&nbsp; Pay Securely</h3>
+                    <p class="mt-1 text-sm text-gray-600">&nbsp; Pay Securely via TSF Bank Payment Gateway</p>
+                </div>
+            </div>
+            <div class="mt-5 md:mt-0 md:col-span-2">
+                <form action="/pay" method="POST">
+                    <div class="shadow overflow-hidden sm:rounded-md">
+
+                        <div class="px-4 py-5 bg-white sm:p-6">
+                            <h2 style="font-size:x-large" class="font-large"><u>From : </u></h2>
+                            <br>
+                            <div class="grid grid-cols-6 gap-6">
+                                <div class="col-span-6 sm:col-span-3">
+                                    <label for="first-name" class="block text-sm font-medium text-gray-700">Account
+                                        number</label>
+                                    <input readonly name="from_id" value="<%= user.id %>" type="text" id="first-name"
+                                        autocomplete="given-name"
+                                        class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                                </div>
+
+                                <div class="col-span-6 sm:col-span-3">
+                                    <label for="last-name" class="block text-sm font-medium text-gray-700">Email
+                                    </label>
+                                    <input readonly value="<%= user.email %>" type="text" id="last-name"
+                                        autocomplete="family-name"
+                                        class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                                </div>
+
+                                <div class="col-span-6 sm:col-span-3">
+                                    <label for="first-name" class="block text-sm font-medium text-gray-700">First
+                                        name</label>
+                                    <input readonly value="<%= user.name.split(" ")[0] %>" type="text" id="first-name"
+                                        autocomplete="given-name"
+                                        class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                                </div>
+
+                                <div class="col-span-6 sm:col-span-3">
+                                    <label for="last-name" class="block text-sm font-medium text-gray-700">Last
+                                        name</label>
+                                    <input readonly value="<%= user.name.split(" ")[1] %>" type="text" id="last-name"
+                                        autocomplete="family-name"
+                                        class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                                </div>
+
+                                <div class="col-span-6 sm:col-span-3">
+                                    <label for="first-name" class="block text-sm font-medium text-gray-700">Phone
+                                        number</label>
+                                    <input readonly value="<%= user.phone%>" type="text" id="first-name"
+                                        autocomplete="given-name"
+                                        class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                                </div>
+
+                                <div id="amtCol2" class="col-span-6 sm:col-span-3">
+                                    <label for="last-name" class="block text-sm font-medium text-gray-700">Total
+                                        Available Amount
+                                    </label>
+                                    <input readonly name="from_amount" value=" <%= user.amount %>" type="text"
+                                        id="last-name" autocomplete="family-name"
+                                        class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                                </div>
+
+
+
+                                <!-- <div class="col-span-6 sm:col-span-3">
+                                    <label for="country" class="block text-sm font-medium text-gray-700">Country</label>
+                                    <select id="country" name="country" autocomplete="country-name"
+                                        class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                                        <option>United States</option>
+                                        <option>Canada</option>
+                                        <option>Mexico</option>
+                                    </select>
+                                </div> -->
+
+
+                            </div>
+
+                        </div>
+
+                        <br>
+
+                        <div class="px-4 py-5 bg-white sm:p-6">
+                            <h2 style="font-size:x-large" class="font-large"><u>To : </u></h2>
+                            <br>
+                            <div class="grid grid-cols-6 gap-6">
+                                <div class="col-span-6 sm:col-span-3">
+                                    <input style="display:none" name="from_name" value="<%= user.name%>" />
+                                    <input style="display:none" id="hidden_to" name="to_name" value="" />
+                                    <label for="first-name" class="block text-sm font-medium text-gray-700">Account
+                                        number</label>
+                                    <input id="to_acntNumber" required id="toAccount" name="to_id"
+                                        placeholder="Enter Account number" value="" type="text"
+                                        autocomplete="given-name"
+                                        class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                                    <code style="color:rgba(255, 0, 0, 0.397);font-size: small;" id="#errMsg"></code>
+                                </div>
+
+                                <div class="col-span-6 sm:col-span-3">
+                                    <label for="last-name" class="block text-sm font-medium text-gray-700">Email
+                                    </label>
+                                    <input readonly value="" type="text" id="to_email" autocomplete="family-name"
+                                        class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                                </div>
+
+                                <div class="col-span-6 sm:col-span-3">
+                                    <label for="first-name" class="block text-sm font-medium text-gray-700">First
+                                        name</label>
+                                    <input readonly value="" type="text" id="to_first_name" autocomplete="given-name"
+                                        class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                                </div>
+
+                                <div class="col-span-6 sm:col-span-3">
+                                    <label for="last-name" class="block text-sm font-medium text-gray-700">Last
+                                        name</label>
+                                    <input readonly value="" type="text" id="to_last_name" autocomplete="family-name"
+                                        class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                                </div>
+
+                                <div class="col-span-6 sm:col-span-3">
+                                    <label for="first-name" class="block text-sm font-medium text-gray-700">Phone
+                                        number</label>
+                                    <input readonly value="" type="text" id="to_phone" autocomplete="given-name"
+                                        class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                                </div>
+
+                                <div id="amtCol" class="col-span-6 sm:col-span-3">
+                                    <label for="last-name" class="block text-sm font-medium text-gray-700">Enter
+                                        Tranaction Amount
+                                    </label>
+                                    <input required name="to_amount" value="" type="text" id="to_amt"
+                                        autocomplete="family-name"
+                                        class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                                    <code style="color:rgba(255, 0, 0, 0.397);font-size: small;" id="#errMsg1"> </code>
+
+                                </div>
+
+
+                                <!-- <div class="col-span-6 sm:col-span-3">
+                                    <label for="country" class="block text-sm font-medium text-gray-700">Country</label>
+                                    <select id="country" name="country" autocomplete="country-name"
+                                        class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                                        <option>United States</option>
+                                        <option>Canada</option>
+                                        <option>Mexico</option>
+                                    </select>
+                                </div> -->
+
+
+                            </div>
+                            <br>
+
+                            <div>
+                                <label for="about" class="block text-sm font-medium text-gray-700"> Enter Message
+                                </label>
+                                <div class="mt-1">
+                                    <textarea required id="about" name="msg" rows="3"
+                                        class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 block w-full sm:text-sm border border-gray-300 rounded-md"
+                                        placeholder="Enter Text Message"></textarea>
+                                </div>
+                            </div>
+
+
+                            <div class="px-4 py-3 bg-gray-50 text-right sm:px-6">
+                                <button type="submit"
+                                    class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Pay
+                                    Securely</button>
+                            </div>
+                        </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script>
+        // const axios = require('axios');
+        const amt_inp = document.getElementById('to_amt');
+        const inp = document.getElementById('to_acntNumber');
+        // console.log(amt_inp);
+        const amt = parseInt('<%- user.amount %>');
+        // console.log(amt);
+
+        amt_inp.addEventListener('keyup', (e) => {
+            console.log(e.target.value);
+            console.log(amt);
+
+            if (parseInt(e.target.value) > amt || parseInt(e.target.value) <= 0) {
+                // e.target.value = '';
+                document.getElementById('#errMsg1').innerHTML =
+                    `Enter Appropriate Amount should be greater than 0 and less than ${amt}`;
+            } else {
+                document.getElementById('#errMsg1').innerHTML = "";
+            }
+        });
+
+        inp.addEventListener('keyup', (e) => {
+            document.getElementById("#errMsg").innerHTML = "";
+            const or_id = '<%- user.id %>';
+            if (e.target.value.length === 24 && e.target.value !== or_id) {
+                // console.log("hi");
+                getUserData(e.target.value);
+
+            } else {
+                document.getElementById("hidden_to").value = "";
+                document.getElementById("to_email").value = "";
+                document.getElementById("to_first_name").value = "";
+                document.getElementById("to_last_name").value = "";
+                document.getElementById("to_phone").value = "";
+                document.getElementById("#errMsg").innerHTML = "Enter Valid or different Account Number";
+            }
+        });
+
+
+        const getUserData = async (id) => {
+
+            // const data = await axios.get(`http://localhost:3000/getData/${id}`).then(res => res.data).catch(
+            //     err =>
+            //     err);
+            
+            const data = await axios.get(`https://protected-wave-98167.herokuapp.com/getData/${id}`).then(res => res.data).catch(
+                err =>
+                err);
+
+            console.log(data);
+            document.getElementById("hidden_to").value = data.name;
+            document.getElementById("to_email").value = data.email;
+            document.getElementById("to_first_name").value = data.name.split(" ")[0];
+            document.getElementById("to_last_name").value = data.name.split(" ")[1];
+            document.getElementById("to_phone").value = data.phone;
+
+        }
+    </script>
+</body>
+
+<%- include('footer')  %>
